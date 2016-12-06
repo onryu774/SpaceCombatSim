@@ -8,34 +8,53 @@ class EnemyShip
 public:
 	EnemyShip();
 	~EnemyShip();
-	void Initialaiz(const int x,const int y,const int z);
-	void Update(const DirectX::SimpleMath::Vector3 Player_Pos);
+	//初期化
+	void Initialaiz(const float x,const float y,const float z);
+	//更新
+	void Update(const DirectX::SimpleMath::Vector3 Tage_Pos);
+	//モデルなどの計算
 	void Calc();
+	//描写
 	void Draw();
+	//位置の取得
 	const DirectX::SimpleMath::Vector3& GetTrans();
+	//回転の取得
 	const DirectX::SimpleMath::Vector3& GetRot();
+	//位置の設定
 	void SetTrans(const DirectX::SimpleMath::Vector3& trans);
+	//ダメージを受ける
 	void Damegy() { m_Lifes--;}
+	//生きているかどうか
 	bool Livese();
+	//ローカルワールド行列の取得
 	const DirectX::SimpleMath::Matrix& GetLocalWorld();
+	//当たり判定の取得
 	const CapsuleNode& GetCollisionNodeBody() { return collisionNodeBody; }
 	
 protected:
+	//3Dモデル
 	Obj3D obj;
 private:
-	
-	bool m_Liveflag;
-	DirectX::SimpleMath::Matrix LooKAtMatrix(const DirectX::SimpleMath::Vector3 Player_Pos);
+	//回転行列の計算
+	DirectX::SimpleMath::Matrix LooKAtMatrix(const DirectX::SimpleMath::Vector3 Tage_Pos);
+	//目的地のベクトル
 	DirectX::SimpleMath::Vector3 Ptage;
-	bool EnemyView(const DirectX::SimpleMath::Vector3 Player_Pos, const DirectX::SimpleMath::Vector3 EnemyMove);
-	void NoFinedMove(int frem);
-	void FinedMove();
-	DirectX::SimpleMath::Vector3 Slep(const DirectX::SimpleMath::Vector3 start,const DirectX::SimpleMath::Vector3 end,float frem);
+	//進む方向ベクトル
+	DirectX::SimpleMath::Vector3 move;
+	//プレイヤーを見つけているかどうか判定
+	bool EnemyView(const DirectX::SimpleMath::Vector3 Tage_Pos, const DirectX::SimpleMath::Vector3 EnemyMove);
+	//プレイヤーを見つけていないときの行動
+    DirectX::SimpleMath::Quaternion NoFinedMove();
+	//プレイヤーを見つけているときの行動
+	DirectX::SimpleMath::Quaternion FinedMove(const DirectX::SimpleMath::Vector3 Tage_Pos);
+	//プレイヤーを見つけているかどうか
+	bool insite;
+	//フレーム
 	int m_frame;
+	//時間
 	int m_time;
+	//ライフ
 	int m_Lifes;
-	int m_x;
-	int m_y;
-	int m_z;
+	//当たり判定
 	CapsuleNode  collisionNodeBody;
 };

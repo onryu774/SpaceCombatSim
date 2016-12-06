@@ -13,24 +13,13 @@
 
 #include<ctime>
 #include <DirectXColors.h>
-
 #include "Direct3D.h"
 #include "DirectXTK.h"
 #include "ImaseLib\FPSTimer.h"
-
 #include <SimpleMath.h>
-
 #include "Grid.h"
 #include "DebugCamera.h"
-#include"Game\Obj3D.h"
 #include"Game\Camera.h"
-#include "Player.h"
-#include"EnemyShip.h"
-#include"Partiecle\PraticleManeger.h"
-#include"Partiecle\TaskManager.h"
-#include"BeamParticle.h"
-#include"Contrail.h"
-
 #include"PlayScene.h"
 using namespace Microsoft::WRL;
 using namespace DirectX;
@@ -71,7 +60,8 @@ HWND g_hWnd = nullptr;	// ウインドウハンドル
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
 	
-	srand((unsigned int)time(NULL));
+	
+	
 	PlayScene* playScene;
 	playScene = new PlayScene;
 	

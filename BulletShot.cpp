@@ -39,7 +39,7 @@ void BulletShot::Initialaiz(const DirectX::SimpleMath::Matrix* pParentMatrix)
 	collisionNodeBullet.SetRot(Vector3(-XM_PIDIV2, 0, 0));
 	
 }
-
+//弾の更新処理
 void BulletShot::Update()
 {
 	if (m_flag==true)return;
@@ -51,7 +51,8 @@ void BulletShot::Update()
 	Vector3 scale;
 	Quaternion rotp;
 	Vector3 pos;
-
+	//回転行列の計算
+	/////////////////////////////////////
 	Vector3* m0 = (Vector3*)&worlddm.m[0];
 	Vector3* m1 = (Vector3*)&worlddm.m[1];
 	Vector3* m2 = (Vector3*)&worlddm.m[2];
@@ -59,7 +60,7 @@ void BulletShot::Update()
 	/*worlddm.Decompose(scale, rotp, pos);*/
 
 	pos = *m3;
-
+	
 	scale = Vector3(m0->Length(), m1->Length(), m2->Length());
 
 	m0->Normalize();
@@ -68,14 +69,14 @@ void BulletShot::Update()
 
 	rotp = Quaternion::CreateFromRotationMatrix(worlddm);
 
-
+	//////////////////////////////////////////////////////
 	obj.SetParentMatrix(nullptr);
 	obj.SetScale(scale);
 	obj.SetRotQ(rotp);
 	obj.SetTrans(pos);
 	g--;
-	m_BulletVel = Vector3(0.0f, /*g*0.001f + g / 20*/0, -0.5f);
-
+	m_BulletVel = Vector3(0.0f, 0, -0.5f);
+	//弾の進むベクトルの計算
 	m_BulletVel = Vector3::Transform(m_BulletVel, rotp);
 
 
@@ -89,7 +90,7 @@ void BulletShot::ResetBullet(const DirectX::SimpleMath::Matrix * Parent)
 
 	if (m_flag==false)return;
 
-
+	//元の位置の戻す
 	obj.SetParentMatrix(Parent);
 	obj.SetTrans(Vector3(0, 0, 0));
 
